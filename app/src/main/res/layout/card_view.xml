@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView
+ xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/card_view"
+    android:layout_height="150dp"
+    android:layout_width="match_parent"
+    android:layout_gravity="center"
+    android:layout_margin="5dp"
+    android:elevation="3dp"
+    card_view:cardCornerRadius="0dp"
+    >
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <ImageView
+        android:id="@+id/image_view_vid_of_the_day"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:src="@drawable/video_of_the_day_image"
+   />
+    <VideoView
+        android:id="@+id/video_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        />
+
+
+
+    <ImageView
+        android:id="@+id/image_view_vid_of_the_day2"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:src="@drawable/video_of_the_day_image"
+        />
+
+</LinearLayout>
+
+    </android.support.v7.widget.CardView>
