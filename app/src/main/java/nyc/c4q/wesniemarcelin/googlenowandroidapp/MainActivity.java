@@ -1,22 +1,15 @@
 package nyc.c4q.wesniemarcelin.googlenowandroidapp;
 
-import android.content.Intent;
-import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.widget.ImageView;
-import android.widget.Toast;
 
-import com.bumptech.glide.Glide;
-import com.google.android.youtube.player.YouTubeBaseActivity;
-import com.google.android.youtube.player.YouTubeInitializationResult;
-import com.google.android.youtube.player.YouTubePlayer;
 import com.google.android.youtube.player.YouTubePlayerFragment;
-import com.google.android.youtube.player.YouTubePlayerView;
 
 import java.util.ArrayList;
+
+import static android.icu.lang.UCharacter.GraphemeClusterBreak.T;
 
 public class MainActivity extends AppCompatActivity  {
 
@@ -35,19 +28,15 @@ public class MainActivity extends AppCompatActivity  {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        ArrayList<YouTubeCards> data=  new ArrayList<YouTubeCards>();
-        data.add(new YouTubeCards(R.drawable.video_of_the_day_image));
-        data.add(new YouTubeCards(R.drawable.video_of_the_day_image));
-        data.add(new YouTubeCards(R.drawable.video_of_the_day_image));
-//        data.add(new YouTubeCards(R.drawable.video_of_the_day_image));
-//        data.add(new YouTubeCards(R.drawable.video_of_the_day_image));
-//        data.add(new YouTubeCards(R.drawable.video_of_the_day_image));
-//        data.add(new YouTubeCards(R.drawable.video_of_the_day_image));
+        ArrayList<Object> data=  new ArrayList<Object>();
+        data.add(new YouTubeCardData(R.drawable.video_of_the_day_image));
+        data.add(new YouTubeCardData(R.drawable.video_of_the_day_image));
+        data.add(new YouTubeCardData(R.drawable.video_of_the_day_image));
 
 
         recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
-        layoutManager = new LinearLayoutManager(this,LinearLayoutManager.VERTICAL, false);
-        recyclerView.setLayoutManager(layoutManager);
+
+        recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
 
 
         adapter = new MyAdapter(data);

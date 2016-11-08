@@ -7,11 +7,11 @@ import android.widget.TextView;
  * Created by wesniemarcelin on 11/4/16.
  */
 
-public class YouTubeCards {
-    int vidPic;
-    TextView text;
+public class YouTubeCardData {
+    private int vidPic;
+    private TextView text;
 
-    public YouTubeCards(int vidPic) {
+    public YouTubeCardData(int vidPic) {
         this.vidPic = vidPic;
 
     }
