@@ -1,46 +1,58 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     xmlns:card_view="http://schemas.android.com/apk/res-auto"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content">
-<android.support.v7.widget.CardView
- xmlns:card_view="http://schemas.android.com/apk/res-auto"
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/card_view"
-    android:layout_height="150dp"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_gravity="center"
-    android:layout_margin="5dp"
-    android:elevation="3dp"
-    card_view:cardCornerRadius="0dp"
-    >
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="horizontal"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content">
-    <ImageView
-        android:id="@+id/image_view_vid_of_the_day"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:src="@drawable/video_of_the_day_image"
-   />
-    <VideoView
-        android:id="@+id/video_view"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        />
+    android:layout_height="wrap_content"
+    android:orientation="horizontal">
+
+    <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:card_view="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/card_view"
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:layout_gravity="center"
+        android:layout_margin="5dp"
+        android:elevation="3dp"
+        card_view:cardCornerRadius="0dp">
+
+        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/image_view_vid_of_the_day"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:src="@drawable/video_of_the_day_image" />
+
+            <VideoView
+                android:id="@+id/video_view"
+                android:layout_width="240dp"
+                android:layout_height="wrap_content" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:src="@drawable/vine_logo2" />
+                <TextView
+                    android:id="@+id/username_imageview"
+                    android:layout_width="50dp"
+                    android:layout_height="40dp" />
+
+                <ImageView
+                    android:id="@+id/vine_avatar"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
 
 
-
-    <ImageView
-        android:id="@+id/image_view_vid_of_the_day2"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:src="@drawable/video_of_the_day_image"
-        />
-
-</LinearLayout>
-
+            </LinearLayout>
+        </LinearLayout>
     </android.support.v7.widget.CardView>
 </LinearLayout>

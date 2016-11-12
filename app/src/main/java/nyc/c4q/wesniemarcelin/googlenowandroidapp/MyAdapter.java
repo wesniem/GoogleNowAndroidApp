@@ -2,12 +2,8 @@ package nyc.c4q.wesniemarcelin.googlenowandroidapp;
 
 
 import android.support.v7.widget.RecyclerView;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.TextView;
-import android.widget.VideoView;
 
 import java.util.ArrayList;
 
@@ -39,9 +35,7 @@ public class MyAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             //Jose's code goes here (write your code above break statement)
         }
         if (viewType == YOUTUBECARD_POSITION) {
-            view = LayoutInflater.from(parent.getContext()).inflate(R.layout.youtube_item_view, parent, false);
-            YouTubeCardViewHolder vidCard = new YouTubeCardViewHolder(view);
-            return vidCard;
+            return new VineViewHolder(parent);
         }
         return null;
     }
@@ -51,15 +45,14 @@ public class MyAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         final int viewType = getItemViewType(position);
         if(viewType == YOUTUBECARD_POSITION) {
-            ((YouTubeCardViewHolder) holder).bind((YouTubeCardData) cards.get(position));
+            ((VineViewHolder) holder).bind((VineCardData) cards.get(position));
         }
         //Write code for your cards similar to what I have above
-
     }
 
     @Override
     public int getItemViewType(int position) {
-        if (cards.get(position) instanceof YouTubeCardData) {
+        if (cards.get(position) instanceof VineCardData) {
             return YOUTUBECARD_POSITION;
         }
 // else if (cards.get(position) instanceof TODOList) {
@@ -77,29 +70,6 @@ public class MyAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     }
 
     //Describes how viewholder should look
-    public class YouTubeCardViewHolder extends RecyclerView.ViewHolder {
-        TextView text;
-        ImageView image;
-        VideoView video;
 
-        public YouTubeCardViewHolder(View itemView) {
-            super(itemView);
-
-            image = (ImageView) itemView.findViewById(R.id.image_view_vid_of_the_day);
-            video = (VideoView) itemView.findViewById(R.id.video_view);
-        }
-
-        //Binds the specific Youtube card data with the view
-        public void bind(YouTubeCardData youTubeCardData) {
-            image.setImageResource(R.drawable.video_of_the_day_image);
-            video.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    //Instantiate Retrofit
-                }
-            });
-
-        }
-    }
 
 }
