@@ -3,7 +3,6 @@ package nyc.c4q.wesniemarcelin.googlenowandroidapp;
 import android.content.Context;
 import android.media.MediaPlayer;
 import android.net.Uri;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,7 +17,7 @@ import com.squareup.picasso.Picasso;
  * Created by wesniemarcelin on 11/6/16.
  */
 
-public class VineViewHolder extends RecyclerView.ViewHolder {
+public class VineViewHolder extends CardViewHolder<VineCardData> {
     TextView text;
     ImageView avatarView;
     String avatarUrl;
@@ -34,12 +33,12 @@ public class VineViewHolder extends RecyclerView.ViewHolder {
         context = parent.getContext();
         image = (ImageView) itemView.findViewById(R.id.image_view_vid_of_the_day);
         video = (VideoView) itemView.findViewById(R.id.video_view);
-        avatarView= (ImageView)itemView.findViewById(R.id.vine_avatar);
+        avatarView = (ImageView)itemView.findViewById(R.id.vine_avatar);
         username = (TextView)itemView.findViewById(R.id.username_imageview);
     }
 
     public static View inflateView(ViewGroup parent) {
-        return LayoutInflater.from(parent.getContext()).inflate(R.layout.youtube_item_view, parent, false);
+        return LayoutInflater.from(parent.getContext()).inflate(R.layout.vine_item_view, parent, false);
     }
 
     //Binds the specific Youtube card data with the view

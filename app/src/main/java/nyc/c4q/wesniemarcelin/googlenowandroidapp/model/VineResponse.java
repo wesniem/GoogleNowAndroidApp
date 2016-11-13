@@ -4,7 +4,7 @@ package nyc.c4q.wesniemarcelin.googlenowandroidapp.model;
  * Created by wesniemarcelin on 11/8/16.
  */
 
-public class Example {
+public class VineResponse {
 
     public String code;
     public Data data;
