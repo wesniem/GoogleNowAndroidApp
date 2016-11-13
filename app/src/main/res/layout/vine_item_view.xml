@@ -45,6 +45,7 @@
                 android:id="@+id/username_imageview"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
+                android:textSize="12dp"
                 android:gravity="top|center_horizontal"
                 android:layout_weight=".25" />
 </LinearLayout>
