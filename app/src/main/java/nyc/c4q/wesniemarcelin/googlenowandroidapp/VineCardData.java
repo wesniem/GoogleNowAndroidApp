@@ -1,13 +1,12 @@
 package nyc.c4q.wesniemarcelin.googlenowandroidapp;
 
-import android.widget.ImageView;
 import android.widget.TextView;
 
 /**
  * Created by wesniemarcelin on 11/4/16.
  */
 
-public class VineCardData {
+public class VineCardData implements CardData {
     private int vidPic;
     private TextView text;
     private String url;

@@ -1,8 +1,6 @@
 package nyc.c4q.wesniemarcelin.googlenowandroidapp.network;
 
-import nyc.c4q.wesniemarcelin.googlenowandroidapp.model.Example;
-import nyc.c4q.wesniemarcelin.googlenowandroidapp.model.Record;
-import okhttp3.ResponseBody;
+import nyc.c4q.wesniemarcelin.googlenowandroidapp.model.VineResponse;
 import retrofit2.Call;
 import retrofit2.http.GET;
 
@@ -12,6 +10,6 @@ import retrofit2.http.GET;
 
 public interface VineService {
     @GET("timelines/tags/funny")
-    Call<Example> listRepos();
+    Call<VineResponse> listVines();
 
 }

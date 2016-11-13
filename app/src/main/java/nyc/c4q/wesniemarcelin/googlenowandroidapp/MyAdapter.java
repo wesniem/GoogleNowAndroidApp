@@ -11,8 +11,8 @@ import java.util.ArrayList;
  * Created by wesniemarcelin on 11/4/16.
  */
 //Adapts the data set to the activity; Looks at data and activity and populates the screen accordingly
-public class MyAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
-    private ArrayList<Object> cards;
+public class MyAdapter extends RecyclerView.Adapter<CardViewHolder> {
+    private ArrayList<CardData> cards;
 
     public final int TO_DO_LIST_POSITION = 1;
     public final int INSPIRE_CARD_POSITION = 2;
@@ -20,19 +20,19 @@ public class MyAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
 
     //List of "objects"
-    public MyAdapter(ArrayList<Object> cards) {
+    public MyAdapter(ArrayList<CardData> cards) {
         this.cards = cards;
     }
 
     //Creates enough views to fill up the screen
     @Override
-    public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public CardViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view;
         if (viewType == TO_DO_LIST_POSITION) {
             //Jonathan's viewholder code goes here (write your code above break statement)
         }
         if (viewType == INSPIRE_CARD_POSITION) {
-            //Jose's code goes here (write your code above break statement)
+            return new QuoteViewHolder(parent);
         }
         if (viewType == YOUTUBECARD_POSITION) {
             return new VineViewHolder(parent);
@@ -42,12 +42,16 @@ public class MyAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     //Binds the data to the view
     @Override
-    public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
+    public void onBindViewHolder(CardViewHolder holder, int position) {
         final int viewType = getItemViewType(position);
+        //noinspection unchecked
+        //holder.bind(cards.get(position));
         if(viewType == YOUTUBECARD_POSITION) {
             ((VineViewHolder) holder).bind((VineCardData) cards.get(position));
         }
-        //Write code for your cards similar to what I have above
+        if(viewType == INSPIRE_CARD_POSITION) {
+            ((QuoteViewHolder) holder).bind((QuoteCardData) cards.get(position));
+        }
     }
 
     @Override
@@ -58,6 +62,9 @@ public class MyAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 // else if (cards.get(position) instanceof TODOList) {
 //            return ITEM_TYPE_NORMAL;
 //        }
+        else if(cards.get(position) instanceof QuoteCardData){
+            return INSPIRE_CARD_POSITION;
+        }
         else{
             return 0;
         }
