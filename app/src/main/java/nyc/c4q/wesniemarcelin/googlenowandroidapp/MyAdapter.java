@@ -7,6 +7,9 @@ import android.view.ViewGroup;
 
 import java.util.ArrayList;
 
+import nyc.c4q.wesniemarcelin.googlenowandroidapp.TodoList.TodoListCarddata;
+import nyc.c4q.wesniemarcelin.googlenowandroidapp.TodoList.TodoListViewHolder;
+
 /**
  * Created by wesniemarcelin on 11/4/16.
  */
@@ -30,6 +33,7 @@ public class MyAdapter extends RecyclerView.Adapter<CardViewHolder> {
         View view;
         if (viewType == TO_DO_LIST_POSITION) {
             //Jonathan's viewholder code goes here (write your code above break statement)
+            return new TodoListViewHolder(parent);
         }
         if (viewType == INSPIRE_CARD_POSITION) {
             return new QuoteViewHolder(parent);
@@ -46,6 +50,10 @@ public class MyAdapter extends RecyclerView.Adapter<CardViewHolder> {
         final int viewType = getItemViewType(position);
         //noinspection unchecked
         //holder.bind(cards.get(position));
+
+        if (viewType == TO_DO_LIST_POSITION){
+            ((TodoListViewHolder) holder).bind((TodoListCarddata) cards.get(position));
+        }
         if(viewType == YOUTUBECARD_POSITION) {
             ((VineViewHolder) holder).bind((VineCardData) cards.get(position));
         }
@@ -59,9 +67,9 @@ public class MyAdapter extends RecyclerView.Adapter<CardViewHolder> {
         if (cards.get(position) instanceof VineCardData) {
             return YOUTUBECARD_POSITION;
         }
-// else if (cards.get(position) instanceof TODOList) {
-//            return ITEM_TYPE_NORMAL;
-//        }
+        else if (cards.get(position) instanceof TodoListCarddata) {
+            return TO_DO_LIST_POSITION;
+        }
         else if(cards.get(position) instanceof QuoteCardData){
             return INSPIRE_CARD_POSITION;
         }
