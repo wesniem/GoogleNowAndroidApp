@@ -1,0 +1,35 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="nyc.c4q.wesniemarcelin.googlenowandroidapp.MainActivity"
+    android:weightSum="1">
+
+    <android.support.v7.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="300dp">
+
+        <Button
+            android:text="Save"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/save_button"
+            android:layout_gravity="end|bottom"
+            android:elevation="3dp"
+            android:onClick="saveNote"/>
+
+        <EditText
+            android:id="@+id/edit_text_notepad"
+            android:layout_width="match_parent"
+            android:layout_height="333dp"
+            android:gravity="top"
+            android:textColor="#212121"
+            android:inputType="textMultiLine"
+            android:background="#FFFFA5"
+            android:layout_weight="0.89">
+        </EditText>
+
+    </android.support.v7.widget.CardView>
+
+</LinearLayout>

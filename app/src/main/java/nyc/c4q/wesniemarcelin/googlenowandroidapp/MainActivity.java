@@ -1,15 +1,22 @@
 package nyc.c4q.wesniemarcelin.googlenowandroidapp;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.View;
+import android.widget.EditText;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
-import nyc.c4q.wesniemarcelin.googlenowandroidapp.model.VineResponse;
+import nyc.c4q.wesniemarcelin.googlenowandroidapp.TodoList.TodoListCarddata;
 import nyc.c4q.wesniemarcelin.googlenowandroidapp.model.Quotes;
+import nyc.c4q.wesniemarcelin.googlenowandroidapp.model.VineResponse;
 import nyc.c4q.wesniemarcelin.googlenowandroidapp.network.QuoteService;
 import nyc.c4q.wesniemarcelin.googlenowandroidapp.network.VineService;
 import retrofit2.Call;
@@ -26,6 +33,14 @@ public class MainActivity extends AppCompatActivity {
     public static final String BASE_URL = "https://api.vineapp.com/";
     public static final String QUOTE_URL = "http://quotes.stormconsultancy.co.uk/";
     private static final String TAG = "YOOOOO";
+    private AlertDialog confirmDialogObject;
+    private static final String MODIFIED_NOTE = "Modified Note";
+    public static final String MyPREFERENCES = "MyPrefs" ;
+    public static final String NOTE = "noteKey";
+    private EditText notepad;
+
+    public static SharedPreferences sharedpreferences;
+
 
     private RecyclerView recyclerView;
     private RecyclerView.LayoutManager layoutManager;
@@ -40,14 +55,18 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         data = new ArrayList<CardData>();
         data.add(new VineCardData(R.drawable.video_of_the_day_image));
+        data.add(new TodoListCarddata());
+
 
         vineRetrofitCall();
         quoteretrofitCall();
-
+        sharedpreferences = getPreferences(MODE_PRIVATE);
         recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
         adapter = new MyAdapter(data);
         recyclerView.setAdapter(adapter);
+        notepad = (EditText)findViewById(R.id.edit_text_notepad);
+        buildConfirmDialog();
     }
 
     public void quoteretrofitCall() {
@@ -108,7 +127,40 @@ public class MainActivity extends AppCompatActivity {
                 Log.d("Error: ", t.getMessage());
             }
         });
+    }
 
 
+
+    public void buildConfirmDialog() {
+        AlertDialog.Builder confirmBuilder = new AlertDialog.Builder(this);
+        confirmBuilder.setTitle("Are you sure?");
+        confirmBuilder.setMessage("Are you sure you want to save this note?");
+
+        confirmBuilder.setPositiveButton("Confirm", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                notepad = (EditText) findViewById(R.id.edit_text_notepad);
+                Log.d("Save Note: ", "Contact Note: " + notepad.getText());
+
+                SharedPreferences.Editor editor = sharedpreferences.edit();
+
+                editor.putString(NOTE, notepad.getText().toString()).apply();
+                Toast.makeText(MainActivity.this, sharedpreferences.getString(NOTE,"default"), Toast.LENGTH_SHORT).show();
+
+            }
+        });
+
+        confirmBuilder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                //do nothing
+            }
+        });
+
+        confirmDialogObject = confirmBuilder.create();
+    }
+
+    public void saveNote(View view) {
+        confirmDialogObject.show();
     }
 }
