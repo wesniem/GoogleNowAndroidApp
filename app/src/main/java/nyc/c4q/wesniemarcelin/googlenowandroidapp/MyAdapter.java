@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import nyc.c4q.wesniemarcelin.googlenowandroidapp.TodoList.TodoListCarddata;
 import nyc.c4q.wesniemarcelin.googlenowandroidapp.TodoList.TodoListViewHolder;
@@ -22,7 +23,7 @@ public class MyAdapter extends RecyclerView.Adapter<CardViewHolder> {
     public final int YOUTUBECARD_POSITION = 3;
 
 
-    //List of "objects"
+    //List of "cards"
     public MyAdapter(ArrayList<CardData> cards) {
         this.cards = cards;
     }
@@ -52,13 +53,13 @@ public class MyAdapter extends RecyclerView.Adapter<CardViewHolder> {
         //holder.bind(cards.get(position));
 
         if (viewType == TO_DO_LIST_POSITION){
-            ((TodoListViewHolder) holder).bind((TodoListCarddata) cards.get(position));
+            ((TodoListViewHolder) holder).bind((TodoListCarddata) cards.get((position)%(cards.size())));
         }
         if(viewType == YOUTUBECARD_POSITION) {
-            ((VineViewHolder) holder).bind((VineCardData) cards.get(position));
+            ((VineViewHolder) holder).bind((VineCardData) cards.get((position)%(cards.size())));
         }
         if(viewType == INSPIRE_CARD_POSITION) {
-            ((QuoteViewHolder) holder).bind((QuoteCardData) cards.get(position));
+            ((QuoteViewHolder) holder).bind((QuoteCardData) cards.get((position)%(cards.size())));
         }
     }
 
@@ -84,7 +85,16 @@ public class MyAdapter extends RecyclerView.Adapter<CardViewHolder> {
         return cards.size();
     }
 
-    //Describes how viewholder should look
+    // Clean all elements of the recycler
+    public void clear() {
+        cards.clear();
+        notifyDataSetChanged();
+    }
+    // Add a list of items
+    public void addAll(List<CardData> list) {
+        cards.addAll(list);
+        notifyDataSetChanged();
+    }
 
 
 }

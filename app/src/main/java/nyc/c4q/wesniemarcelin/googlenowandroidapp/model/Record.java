@@ -16,7 +16,7 @@ public class Record {
 //    public String description;
 //    public String created;
     public String avatarUrl;
-//    public int userId;
+   public String userId;
 //    public Comments comments;
 //    public String thumbnailUrl;
 //    public Object foursquareVenueId;
@@ -93,14 +93,14 @@ public class Record {
         this.avatarUrl = avatarUrl;
     }
 
-//    public int getUserId() {
-//        return userId;
-//    }
+    public String getUserId() {
+        return userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
+    }
 //
-//    public void setUserId(int userId) {
-//        this.userId = userId;
-//    }
-////
 //    public Comments getComments() {
 //        return comments;
 //    }
