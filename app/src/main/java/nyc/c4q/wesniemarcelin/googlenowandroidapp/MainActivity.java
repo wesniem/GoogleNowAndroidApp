@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -33,9 +34,10 @@ public class MainActivity extends AppCompatActivity {
     public static final String BASE_URL = "https://api.vineapp.com/";
     public static final String QUOTE_URL = "http://quotes.stormconsultancy.co.uk/";
     private static final String TAG = "YOOOOO";
+    private SwipeRefreshLayout swipeContainer;
     private AlertDialog confirmDialogObject;
     private static final String MODIFIED_NOTE = "Modified Note";
-    public static final String MyPREFERENCES = "MyPrefs" ;
+    public static final String MyPREFERENCES = "MyPrefs";
     public static final String NOTE = "noteKey";
     private EditText notepad;
 
@@ -54,6 +56,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         data = new ArrayList<CardData>();
+        swipeContainer = (SwipeRefreshLayout) findViewById(R.id.swipeRefreshLayout);
         data.add(new VineCardData(R.drawable.video_of_the_day_image));
         data.add(new TodoListCarddata());
 
@@ -65,9 +68,31 @@ public class MainActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
         adapter = new MyAdapter(data);
         recyclerView.setAdapter(adapter);
-        notepad = (EditText)findViewById(R.id.edit_text_notepad);
+        notepad = (EditText) findViewById(R.id.edit_text_notepad);
         buildConfirmDialog();
+
+        //Setting for refresh
+        swipeContainer.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                //quoteRetrofitcall
+                //vineRetroFitCall
+                //Service call goes here
+                // Your code to refresh the list here.
+                // Make sure you call swipeContainer.setRefreshing(false)
+                // once the network request has completed successfully.
+
+                vineRetrofitCall();
+                onRefreshQuoteRetrofitCall();
+                swipeContainer.setRefreshing(false);
+            }
+        });
+        swipeContainer.setColorSchemeResources(android.R.color.holo_blue_bright,
+                android.R.color.holo_green_light,
+                android.R.color.holo_orange_light,
+                android.R.color.holo_red_light);
     }
+
 
     public void quoteretrofitCall() {
         Retrofit quoteRetrofit = new Retrofit.Builder()
@@ -81,9 +106,34 @@ public class MainActivity extends AppCompatActivity {
         call.enqueue(new Callback<Quotes>() {
             @Override
             public void onResponse(Call<Quotes> call, Response<Quotes> response) {
-                    Log.d(TAG, "Success!" + response.body().toString());
-                    Quotes quote = response.body();
+                Log.d(TAG, "Success!" + response.body().toString());
+                Quotes quote = response.body();
                 data.add(new QuoteCardData(quote));
+                adapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onFailure(Call<Quotes> call, Throwable t) {
+                Log.d(TAG, "Error!" + t.getMessage());
+            }
+        });
+    }
+
+    public void onRefreshQuoteRetrofitCall() {
+        Retrofit quoteRetrofit = new Retrofit.Builder()
+                .baseUrl(QUOTE_URL)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+        QuoteService service = quoteRetrofit.create(QuoteService.class);
+
+        Call<Quotes> call = service.listQuotes();
+        Log.d(TAG, "Succ");
+        call.enqueue(new Callback<Quotes>() {
+            @Override
+            public void onResponse(Call<Quotes> call, Response<Quotes> response) {
+                Log.d(TAG, "Success!" + response.body().toString());
+                Quotes quote = response.body();
+//                data.add(new QuoteCardData(quote));
                 adapter.notifyDataSetChanged();
             }
 
@@ -132,7 +182,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-
     public void buildConfirmDialog() {
         AlertDialog.Builder confirmBuilder = new AlertDialog.Builder(this);
         confirmBuilder.setTitle("Are you sure?");
@@ -147,7 +196,7 @@ public class MainActivity extends AppCompatActivity {
                 SharedPreferences.Editor editor = sharedpreferences.edit();
 
                 editor.putString(NOTE, notepad.getText().toString()).apply();
-                Toast.makeText(MainActivity.this, sharedpreferences.getString(NOTE,"default"), Toast.LENGTH_SHORT).show();
+                Toast.makeText(MainActivity.this, sharedpreferences.getString(NOTE, "default"), Toast.LENGTH_SHORT).show();
 
             }
         });

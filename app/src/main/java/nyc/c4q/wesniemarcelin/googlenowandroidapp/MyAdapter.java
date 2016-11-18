@@ -20,7 +20,7 @@ public class MyAdapter extends RecyclerView.Adapter<CardViewHolder> {
 
     public final int TO_DO_LIST_POSITION = 1;
     public final int INSPIRE_CARD_POSITION = 2;
-    public final int YOUTUBECARD_POSITION = 3;
+    public final int VINECARD_POSITION = 3;
 
 
     //List of "cards"
@@ -39,7 +39,7 @@ public class MyAdapter extends RecyclerView.Adapter<CardViewHolder> {
         if (viewType == INSPIRE_CARD_POSITION) {
             return new QuoteViewHolder(parent);
         }
-        if (viewType == YOUTUBECARD_POSITION) {
+        if (viewType == VINECARD_POSITION) {
             return new VineViewHolder(parent);
         }
         return null;
@@ -53,20 +53,20 @@ public class MyAdapter extends RecyclerView.Adapter<CardViewHolder> {
         //holder.bind(cards.get(position));
 
         if (viewType == TO_DO_LIST_POSITION){
-            ((TodoListViewHolder) holder).bind((TodoListCarddata) cards.get((position)%(cards.size())));
+            ((TodoListViewHolder) holder).bind((TodoListCarddata) cards.get((position)));
         }
-        if(viewType == YOUTUBECARD_POSITION) {
-            ((VineViewHolder) holder).bind((VineCardData) cards.get((position)%(cards.size())));
+        if(viewType == VINECARD_POSITION) {
+            ((VineViewHolder) holder).bind((VineCardData) cards.get((position)));
         }
         if(viewType == INSPIRE_CARD_POSITION) {
-            ((QuoteViewHolder) holder).bind((QuoteCardData) cards.get((position)%(cards.size())));
+            ((QuoteViewHolder) holder).bind((QuoteCardData) cards.get((position)));
         }
     }
 
     @Override
     public int getItemViewType(int position) {
         if (cards.get(position) instanceof VineCardData) {
-            return YOUTUBECARD_POSITION;
+            return VINECARD_POSITION;
         }
         else if (cards.get(position) instanceof TodoListCarddata) {
             return TO_DO_LIST_POSITION;
