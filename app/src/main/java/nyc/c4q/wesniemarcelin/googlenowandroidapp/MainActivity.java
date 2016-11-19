@@ -8,10 +8,14 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.helper.ItemTouchHelper;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
+
+import com.marshalchen.ultimaterecyclerview.itemTouchHelper.*;
+import com.marshalchen.ultimaterecyclerview.itemTouchHelper.SimpleItemTouchHelperCallback;
 
 import java.util.ArrayList;
 
@@ -47,6 +51,7 @@ public class MainActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
     private RecyclerView.LayoutManager layoutManager;
     private RecyclerView.Adapter adapter;
+    private MyAdapter itemTouchHelperAdapter;
 
     ArrayList<CardData> data;
 
@@ -71,7 +76,12 @@ public class MainActivity extends AppCompatActivity {
         notepad = (EditText) findViewById(R.id.edit_text_notepad);
         buildConfirmDialog();
 
-        //Setting for refresh
+//        //Initiate swipe to dismiss call
+//        ItemTouchHelper.Callback callback = new SimpleItemTouchHelperCallback(MyAdapter);
+//        ItemTouchHelper touchHelper = new ItemTouchHelper(callback);
+//        touchHelper.attachToRecyclerView(recyclerView);
+
+        //Settings for swipe to refresh
         swipeContainer.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {

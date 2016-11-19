@@ -20,7 +20,7 @@ public class MyAdapter extends RecyclerView.Adapter<CardViewHolder> {
 
     public final int TO_DO_LIST_POSITION = 1;
     public final int INSPIRE_CARD_POSITION = 2;
-    public final int VINECARD_POSITION = 3;
+    public final int VINECARD_POSITION = 0;
 
 
     //List of "cards"
@@ -48,30 +48,30 @@ public class MyAdapter extends RecyclerView.Adapter<CardViewHolder> {
     //Binds the data to the view
     @Override
     public void onBindViewHolder(CardViewHolder holder, int position) {
-        final int viewType = getItemViewType(position);
+        final int viewType = getItemViewType(position % cards.size());
         //noinspection unchecked
         //holder.bind(cards.get(position));
 
         if (viewType == TO_DO_LIST_POSITION){
-            ((TodoListViewHolder) holder).bind((TodoListCarddata) cards.get((position)));
+            ((TodoListViewHolder) holder).bind((TodoListCarddata) cards.get(position % cards.size()));
         }
         if(viewType == VINECARD_POSITION) {
-            ((VineViewHolder) holder).bind((VineCardData) cards.get((position)));
+            ((VineViewHolder) holder).bind((VineCardData) cards.get(position % cards.size()));
         }
         if(viewType == INSPIRE_CARD_POSITION) {
-            ((QuoteViewHolder) holder).bind((QuoteCardData) cards.get((position)));
+            ((QuoteViewHolder) holder).bind((QuoteCardData) cards.get(position % cards.size()));
         }
     }
 
     @Override
     public int getItemViewType(int position) {
-        if (cards.get(position) instanceof VineCardData) {
+        if ( (position % cards.size() == VINECARD_POSITION)) {
             return VINECARD_POSITION;
         }
-        else if (cards.get(position) instanceof TodoListCarddata) {
+        else if ((position % cards.size() == TO_DO_LIST_POSITION)) {
             return TO_DO_LIST_POSITION;
         }
-        else if(cards.get(position) instanceof QuoteCardData){
+        else if((position % cards.size() == INSPIRE_CARD_POSITION)){
             return INSPIRE_CARD_POSITION;
         }
         else{
@@ -82,7 +82,7 @@ public class MyAdapter extends RecyclerView.Adapter<CardViewHolder> {
     //Counts how many objects that will be in the recycler view
     @Override
     public int getItemCount() {
-        return cards.size();
+        return Integer.MAX_VALUE;
     }
 
     // Clean all elements of the recycler
@@ -94,6 +94,11 @@ public class MyAdapter extends RecyclerView.Adapter<CardViewHolder> {
     public void addAll(List<CardData> list) {
         cards.addAll(list);
         notifyDataSetChanged();
+    }
+
+    public void remove(int position) {
+        cards.remove(position);
+        notifyItemRemoved(position);
     }
 
 
