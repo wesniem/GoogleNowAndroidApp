@@ -111,9 +111,11 @@ public class MainActivity extends AppCompatActivity {
                     VineCardData obj = (VineCardData) data.get(0);
                     VineCardData vineAvatar = (VineCardData) data.get(0);
                     VineCardData vineUsername = (VineCardData) data.get(0);
+                    VineCardData vineUserId = (VineCardData) data.get(0);
                     obj.setUrl(response.body().getData().getRecords().get(0).videoUrl);
                     vineAvatar.setAvatarUrl(response.body().getData().getRecords().get(0).avatarUrl);
                     vineUsername.setUsername(response.body().getData().getRecords().get(0).username);
+                    vineUserId.setUserID(response.body().getData().getRecords().get(0).userId);
                     adapter.notifyDataSetChanged();
 
                 } else {

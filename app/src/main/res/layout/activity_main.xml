@@ -4,7 +4,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_gravity="bottom"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:id="@+id/layout_container">
 
     <ImageView
 
@@ -12,13 +13,18 @@
         android:layout_height="200dp"
         android:background="@drawable/google_now" />
 
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/swipeRefreshLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recyclerView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_gravity="bottom" />
 
-
+    </android.support.v4.widget.SwipeRefreshLayout>
 </LinearLayout>
 
 
